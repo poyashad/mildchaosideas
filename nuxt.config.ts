@@ -3,9 +3,19 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
   typescript: {
-    typeCheck: false
+    typeCheck: false,
   },
-  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/eslint'],
+  modules: [
+    '@nuxtjs/tailwindcss',
+    'shadcn-nuxt',
+    '@nuxt/eslint',
+    '@nuxtjs/plausible',
+  ],
+  plausible: {
+    // Prevent tracking on localhost
+    ignoredHostnames: ['localhost'],
+    apiHost: 'https://plausible.shad-group.com',
+  },
   shadcn: {
     /**
      * Prefix for all the imported component
@@ -15,6 +25,6 @@ export default defineNuxtConfig({
      * Directory that the component lives in.
      * @default "./components/ui"
      */
-    componentDir: './components/ui'
-  }
+    componentDir: './components/ui',
+  },
 })
