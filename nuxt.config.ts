@@ -10,7 +10,31 @@ export default defineNuxtConfig({
     'shadcn-nuxt',
     '@nuxt/eslint',
     '@nuxtjs/plausible',
+    '@nuxtjs/seo',
   ],
+  site: {
+    url: 'https://mildchaosideas.com',
+    name: 'Mild Chaos Ideas',
+    description:
+      'Discover delightfully devious (but totally harmless) ways to add a sprinkle of chaos to everyday life.',
+    defaultLocale: 'en',
+    identity: {
+      type: 'Organization',
+    },
+    twitter: '@mildchaosideas',
+    ogImage: '/og-image.png',
+    ogImageWidth: 1200,
+    ogImageHeight: 630,
+  },
+  robots: {
+    enabled: true,
+  },
+  sitemap: {
+    enabled: true,
+  },
+  ogImage: {
+    enabled: true,
+  },
   plausible: {
     // Prevent tracking on localhost
     ignoredHostnames: ['localhost'],
