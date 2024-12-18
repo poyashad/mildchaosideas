@@ -28,12 +28,23 @@ export default defineNuxtConfig({
   },
   robots: {
     enabled: true,
+    disallow: '',
+    sitemap: 'https://mildchaosideas.com/sitemap.xml',
   },
   sitemap: {
     enabled: true,
+    urls: [],
+    defaults: {
+      changefreq: 'daily',
+      priority: 0.8,
+      lastmod: new Date().toISOString(),
+    },
   },
   ogImage: {
     enabled: true,
+    defaults: {
+      alt: 'Mild Chaos Ideas - Harmless pranks and fun ideas',
+    },
   },
   plausible: {
     // Prevent tracking on localhost
