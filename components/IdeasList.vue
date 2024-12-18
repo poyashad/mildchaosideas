@@ -44,6 +44,21 @@
                 </SelectContent>
               </Select>
             </div>
+
+            <div class="flex flex-col gap-2">
+              <Select v-model="selectedSource">
+                <SelectTrigger class="w-40">
+                  <SelectValue placeholder="Filter by source" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="all">All Sources</SelectItem>
+                    <SelectItem value="ai">AI Generated</SelectItem>
+                    <SelectItem value="human">Human Created</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div class="flex flex-col gap-2">
@@ -151,6 +166,7 @@ interface Idea {
   category: string
   timestamp: number
   votes: { up: number; down: number }
+  isAiGenerated: boolean
 }
 
 const categories = [
@@ -172,6 +188,7 @@ const ideas = ref<Idea[]>([
     category: 'home_decoration',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '7e9d5eb7-8c44-4f1a-9aa1-b01e90b12345',
@@ -181,6 +198,7 @@ const ideas = ref<Idea[]>([
     category: 'time_manipulation',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '550e8400-e29b-41d4-a716-446655440000',
@@ -190,6 +208,7 @@ const ideas = ref<Idea[]>([
     category: 'office_prank',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
@@ -199,6 +218,7 @@ const ideas = ref<Idea[]>([
     category: 'home_organization',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b811-9dad-11d1-80b4-00c04fd430c8',
@@ -208,6 +228,7 @@ const ideas = ref<Idea[]>([
     category: 'communication',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b812-9dad-11d1-80b4-00c04fd430c8',
@@ -216,6 +237,7 @@ const ideas = ref<Idea[]>([
     category: 'kitchen',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b813-9dad-11d1-80b4-00c04fd430c8',
@@ -225,6 +247,7 @@ const ideas = ref<Idea[]>([
     category: 'kitchen',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b814-9dad-11d1-80b4-00c04fd430c8',
@@ -234,6 +257,7 @@ const ideas = ref<Idea[]>([
     category: 'office_prank',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b815-9dad-11d1-80b4-00c04fd430c8',
@@ -243,6 +267,7 @@ const ideas = ref<Idea[]>([
     category: 'home_decoration',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b816-9dad-11d1-80b4-00c04fd430c8',
@@ -252,6 +277,7 @@ const ideas = ref<Idea[]>([
     category: 'organization',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b817-9dad-11d1-80b4-00c04fd430c8',
@@ -261,6 +287,7 @@ const ideas = ref<Idea[]>([
     category: 'office_prank',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b818-9dad-11d1-80b4-00c04fd430c8',
@@ -270,6 +297,7 @@ const ideas = ref<Idea[]>([
     category: 'home_organization',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b819-9dad-11d1-80b4-00c04fd430c8',
@@ -279,6 +307,7 @@ const ideas = ref<Idea[]>([
     category: 'office_prank',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b820-9dad-11d1-80b4-00c04fd430c8',
@@ -288,6 +317,7 @@ const ideas = ref<Idea[]>([
     category: 'kitchen',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b821-9dad-11d1-80b4-00c04fd430c8',
@@ -297,6 +327,7 @@ const ideas = ref<Idea[]>([
     category: 'time_manipulation',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
   {
     id: '6ba7b822-9dad-11d1-80b4-00c04fd430c8',
@@ -306,17 +337,26 @@ const ideas = ref<Idea[]>([
     category: 'home_decoration',
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: true,
   },
 ])
 
 const sortBy = ref<'votes' | 'timestamp'>('timestamp')
 const selectedCategory = ref<string>('all')
+const selectedSource = ref<'all' | 'ai' | 'human'>('all')
 
 const filteredAndSortedIdeas = computed(() => {
   let filtered = ideas.value
+
   if (selectedCategory.value !== 'all') {
     filtered = filtered.filter(
       (idea) => idea.category === selectedCategory.value
+    )
+  }
+
+  if (selectedSource.value !== 'all') {
+    filtered = filtered.filter((idea) =>
+      selectedSource.value === 'ai' ? idea.isAiGenerated : !idea.isAiGenerated
     )
   }
 
@@ -373,6 +413,7 @@ const submitIdea = () => {
     category: newIdea.value.category,
     timestamp: Date.now(),
     votes: { up: 0, down: 0 },
+    isAiGenerated: false,
   }
 
   ideas.value.unshift(idea)

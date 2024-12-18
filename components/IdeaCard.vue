@@ -6,7 +6,9 @@
       <CardTitle
         class="text-lg flex justify-between items-center text-gray-900 font-serif"
       >
-        {{ idea.title }}
+        <div class="flex items-center gap-2">
+          {{ idea.title }}
+        </div>
         <Badge variant="secondary" class="bg-gray-200 text-gray-700">{{
           categoryToName(idea.category)
         }}</Badge>
@@ -34,14 +36,22 @@
           👎 {{ idea.votes.down }}
         </Button>
       </div>
-      <Button
-        variant="secondary"
-        size="sm"
-        class="bg-gray-200 text-gray-700"
-        @click="handleShare"
-      >
-        Share
-      </Button>
+      <div class="flex items-center gap-2">
+        <Badge
+          v-if="idea.isAiGenerated"
+          variant="secondary"
+          class="bg-violet-100 text-violet-800 text-xs"
+        >
+          🤖 AI
+        </Badge>
+        <Badge
+          v-else
+          variant="secondary"
+          class="bg-green-100 text-green-800 text-xs"
+        >
+          👤 Human
+        </Badge>
+      </div>
     </CardFooter>
   </Card>
 </template>
@@ -67,6 +77,7 @@ interface Props {
     description: string
     category: string
     votes: { up: number; down: number }
+    isAiGenerated: boolean
   }
 }
 
