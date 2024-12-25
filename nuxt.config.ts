@@ -5,13 +5,7 @@ export default defineNuxtConfig({
   typescript: {
     typeCheck: false,
   },
-  modules: [
-    '@nuxtjs/tailwindcss',
-    'shadcn-nuxt',
-    '@nuxt/eslint',
-    '@nuxtjs/plausible',
-    '@nuxtjs/seo',
-  ],
+  modules: ['@nuxtjs/tailwindcss', 'shadcn-nuxt', '@nuxt/eslint', '@nuxtjs/plausible', '@nuxtjs/seo', '@nuxthub/core'],
   site: {
     url: 'https://mildchaosideas.com',
     name: 'Mild Chaos Ideas',

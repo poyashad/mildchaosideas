@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@nuxt/eslint": "^0.7.2",
+    "@nuxthub/core": "^0.8.10",
     "@nuxtjs/plausible": "^1.2.0",
     "@nuxtjs/seo": "^2.0.2",
     "@nuxtjs/tailwindcss": "^6.12.2",
@@ -28,8 +29,11 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241224.0",
     "@nuxtjs/color-mode": "^3.5.2",
+    "nitro-cloudflare-dev": "^0.2.1",
     "typescript": "^5.7.2",
-    "vue-tsc": "^2.1.10"
+    "vue-tsc": "^2.1.10",
+    "wrangler": "^3.99.0"
   }
 }
