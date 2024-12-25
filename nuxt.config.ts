@@ -64,6 +64,6 @@ export default defineNuxtConfig({
     componentDir: './components/ui',
   },
   hub: {
-    kv: true,
+    database: true,
   },
 })
